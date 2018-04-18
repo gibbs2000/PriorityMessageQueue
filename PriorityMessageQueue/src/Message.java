@@ -1,12 +1,12 @@
 
 public class Message implements Comparable<Message> {
 
-	int priority;
-	int arrival;
+	int priority, arrival, msgNum;
 
-	public Message(int priority, int arrival) {
+	public Message(int priority, int arrival, int msgNum) {
 		this.priority = priority;
 		this.arrival = arrival;
+		this.msgNum = msgNum;
 	}
 
 	public int getPriority() {
@@ -23,7 +23,7 @@ public class Message implements Comparable<Message> {
 
 	@Override
 	public String toString() {
-		return "Msg with priority: " + priority + " created at: " + arrival;
+		return "Message Number " + msgNum + " has priority: " + priority + " created at: " + arrival;
 	}
 
 	@Override
