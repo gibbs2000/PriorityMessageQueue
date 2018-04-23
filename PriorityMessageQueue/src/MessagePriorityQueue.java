@@ -19,7 +19,7 @@ public class MessagePriorityQueue {
 	// All of these fields can be changed to allow for more messages or
 	// priorityQueues
 
-	final static int processTime = 100000;
+	final static int processTime = (int) Math.pow(10, 10);
 	final static int numQueues = 5;
 
 	/**
@@ -74,7 +74,7 @@ public class MessagePriorityQueue {
 	 * appropriate data to the arrayLists that keep track of totals and run times
 	 * 
 	 * @param msg
-	 *            the message to be printed wand processed
+	 *            the message to be printed and processed
 	 */
 	private static void processMessage(Message msg) {
 		System.out.println(msg + " was removed at: " + curArrivalTime);
