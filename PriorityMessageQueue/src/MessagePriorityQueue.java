@@ -3,7 +3,8 @@ import java.util.PriorityQueue;
 
 /**
  * A mostly static class that runs a simulation in which a Message event with
- * random priority from 0 to 4 occurs with a probability of 0.2 each "minute"
+ * random priority from 0 to 4 occurs with a probability of 0.2 each "minute" in
+ * order to test the capability of PriorityQueues
  * 
  * @author Sean Gibbons
  *
@@ -19,19 +20,17 @@ public class MessagePriorityQueue {
 	// All of these fields can be changed to allow for more messages or
 	// priorityQueues
 
-	final static int processTime = (int) Math.pow(10, 10);
-	final static int numQueues = 5;
+	final static int PROCESS_TIME = 10000000;
+	final static int WAIT_TIME = 4;
+	final static int NUM_QUEUES = 5;
 
 	/**
 	 * A private helper class that setups up the queues and ArrayLists for later
-	 * Implementation
+	 * implementation
 	 */
 	private static void makeQueues() {
-		for (int i = 0; i < numQueues; i++) {
+		for (int i = 0; i < NUM_QUEUES; i++) {
 			messages.add(new PriorityQueue<Message>());
-		}
-
-		for (int i = 0; i < numQueues; i++) {
 			waitingTimes.add(0);
 			numElements.add(0);
 		}
@@ -45,7 +44,7 @@ public class MessagePriorityQueue {
 	 *            the number of the message to be added
 	 */
 	private static void addMessage(int i) {
-		Message msg = new Message((int) (Math.random() * numQueues), curArrivalTime, i);
+		Message msg = new Message((int) (Math.random() * NUM_QUEUES), curArrivalTime, i);
 		messages.get(msg.getPriority()).add(msg);
 	}
 
@@ -60,7 +59,7 @@ public class MessagePriorityQueue {
 				continue;
 			} else {
 				Message msg = queue.peek();
-				if (curArrivalTime - msg.getArrival() >= 4) {
+				if (curArrivalTime - msg.getArrival() >= WAIT_TIME) {
 					processMessage(queue.remove());
 					return;
 				}
@@ -77,8 +76,9 @@ public class MessagePriorityQueue {
 	 *            the message to be printed and processed
 	 */
 	private static void processMessage(Message msg) {
-		System.out.println(msg + " was removed at: " + curArrivalTime);
-		System.out.println("That specific message had a waiting time of " + (curArrivalTime - msg.getArrival()));
+		// System.out.println(msg + " was removed at: " + curArrivalTime);
+		// System.out.println("That specific message had a waiting time of " +
+		// (curArrivalTime - msg.getArrival()));
 		numElements.set(msg.getPriority(), numElements.get(msg.getPriority()) + 1);
 		waitingTimes.set(msg.getPriority(), waitingTimes.get(msg.getPriority()) + (curArrivalTime - msg.getArrival()));
 	}
@@ -109,9 +109,9 @@ public class MessagePriorityQueue {
 	 * A private helper method that prints the results of each of the queues
 	 */
 	private static void showResults() {
-		for (int j = 0; j < numQueues; j++) {
-			System.out.println("The average waiting time of the Queue with Priority " + j + " was: "
-					+ (waitingTimes.get(j) / numElements.get(j)));
+		for (int j = 0; j < NUM_QUEUES; j++) {
+			System.out.printf("The average waiting time of the Queue with Priority " + j + " was: %.2f\n",
+					((double) waitingTimes.get(j) / (double) numElements.get(j)));
 		}
 
 	}
@@ -124,7 +124,7 @@ public class MessagePriorityQueue {
 	 */
 	public static void main(String[] args) {
 		makeQueues();
-		runSystem(processTime);
+		runSystem(PROCESS_TIME);
 		System.out.println();
 		showResults();
 

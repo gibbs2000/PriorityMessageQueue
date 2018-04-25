@@ -1,9 +1,0 @@
-Write-up (Sean):
-
-Message class:
-The Message class is fairly simple, all it has is three integer fields which
-store the Priority of the Message, the time of its instantiation (or "arrival" in terms
-of this assignment) and its number, which is somewhat unnecessary but I used it for debugging
-so that I could tell what Messages were being created and where they were being sent.
-
-MessagePriorityQueue:
